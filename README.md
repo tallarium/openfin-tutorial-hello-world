@@ -56,14 +56,14 @@ http.createServer(app).listen(port, function(){
 Now, you need to add some dependencies for the server. Using a command-line terminal, navigate to the root directory of your project and run:
 
 ```
-$ npm install --save express
-```
-followed by:
-
-```
 $ npm init
 ```
-which will take you through the steps to create a **package.json** file to store dependency information and more about your project.
+Which will take you through the steps to create a **package.json** file to store dependency information and more about your project. Then followed by:
+
+```
+$ npm install --save express
+```
+This will install express, saving the dependency information to your **package.json** file.
 
 If you are unfamiliar with using NPM for package dependencies, you can read their documentation [here](https://docs.npmjs.com/getting-started/using-a-package.json).
 
