@@ -6,7 +6,7 @@ You will need:
 
 - A computer running Windows 8 or higher, or a Mac running Parallels, [VirtualBox](https://www.virtualbox.org/) or similar, to allow Windows 8 or higher to be run
 - A web browser, preferably [Google Chrome](https://www.google.com/chrome/)
-- A code editor of your choice: Atom](https://atom.io/), [Visual Studio Code](https://code.visualstudio.com/), [Notepad++](https://notepad-plus-plus.org/)
+- A code editor of your choice: [Atom](https://atom.io/), [Visual Studio Code](https://code.visualstudio.com/), [Notepad++](https://notepad-plus-plus.org/)
 - An internet connection.
 - Terminal Apps: The [Git Bash](https://git-for-windows.github.io) terminal tool comes with the whole Git package and is a failrly foolproof way of running npm commands.
 
