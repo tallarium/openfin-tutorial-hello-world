@@ -3,8 +3,8 @@
   "startup_app": {
     "name": "OpenFin appseed",
     "description": "A vanilla appseed for OpenFin applications",
-    "url": "http://localhost:9070",
-    "uuid": "openfin-closing-events-demo",
+    "url": "https://openfin.github.io/openfin-tutorial-hello-world/src/index.html",
+    "uuid": "openfin-tutorial-hello-world",
     "autoShow": true
   },
   "runtime": {
@@ -13,7 +13,7 @@
   },
   "shortcut": {
     "company": "OpenFin",
-    "description": "OpenFin appseed",
-    "name": "OpenFin appseed"
+    "description": "OpenFin Tutorial Hello World App",
+    "name": "OpenFin Hello World"
   }
 }
