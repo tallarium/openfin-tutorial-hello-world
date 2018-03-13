@@ -126,11 +126,11 @@ A full list and explanation of configurable properties may be found [here](https
 The installer is generated via a url, like this:
 
 ```
-https://dl.openfin.co/services/download?fileName=openfin_appseed&config=http://localhost:9070/app_local.json 
+https://install.openfin.co/download?fileName=openfin_appseed&config=http://localhost:9070/app_local.json 
 ```
 The parts of the url are as follows:
 
-- **https://dl.openfin.co/services/download :** The path to OpenFin's app generator-this must not be altered.
+- **https://install.openfin.co/download :** The path to OpenFin's app generator-this must not be altered.
 - **?fileName=nameOfTheGeneratedInstallerApp :** The name you wish the installer to have once downloaded.
 - **&config=http://localhost:9070/app_local.json :** The url to the config file created in step 2.1.
 
@@ -198,7 +198,7 @@ $ node server
 
 This should start a simple Node server at [http://localhost:9070](http://localhost:9070), then, click the link below to install as an OpenFin app.
 
-If you wish to change to localhost port, you will need to change the references in **server.js**, **app.json**, and in the [installer](https://dl.openfin.co/services/download?fileName=openfin_appseed&config=http://localhost:9070/app.json).
+If you wish to change to localhost port, you will need to change the references in **server.js**, **app.json**, and in the [installer](https://install.openfin.co/download?fileName=openfin_appseed&config=http://localhost:9070/app.json).
 
 ## Support
 Please enter an issue in the repo for any questions or problems. 
