@@ -19,8 +19,7 @@ namespace OpenfinDesktop
             Runtime runtime = Openfin.Desktop.Runtime.GetRuntimeInstance(options);
             runtime.Connect(() =>
             {
-                ApplicationOptions applicationOptions = new ApplicationOptions("Example", "openfin-closing-events-demo", "http://localhost:9070");
-                Application app = runtime.CreateApplication(applicationOptions);
+                Application app = runtime.WrapApplication("openfin-closing-events-demo");
                 app.isRunning((Ack ack) =>
                 {
                     bool isRunning = ack.getJsonObject().Value<bool>("data");
