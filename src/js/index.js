@@ -16,8 +16,21 @@ function init(){
     }
 };
 
+async function testFetch() {
+    const response = await fetch("https://postman-echo.com/post", {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ a: 1, b: 2 }),
+    });
+    console.log("fetch was successful");
+}
 function initWithOpenFin(){
     alert("OpenFin is available");
+
+    testFetch();
     // Your OpenFin specific code to go here...
 }
 
