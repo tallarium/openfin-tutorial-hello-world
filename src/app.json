@@ -15,5 +15,13 @@
     "company": "OpenFin",
     "description": "OpenFin appseed",
     "name": "OpenFin appseed"
-  }
+  },
+  "appAssets": [
+    {
+      "src": "http://localhost:9070/assets/assetv1.zip",
+      "alias": "myAsset",
+      "version": "1.0",
+      "target": "echo.vbs"
+    }
+  ]
 }
