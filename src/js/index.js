@@ -16,10 +16,10 @@ function init(){
     }
 }
 
-function runMyAsset() {
+function runMyAsset(alias) {
     return new Promise((resolve, reject) => {
         fin.desktop.System.launchExternalProcess({
-            alias: "myAsset",
+            alias,
             listener: function (result) {
                 console.log('the exit code', result.exitCode);
                 resolve();
@@ -37,7 +37,7 @@ function runMyAsset() {
 function downloadV2() {
     const appAsset = {
         "src": "http://localhost:9070/assets/assetv2.zip",
-        "alias": "myAsset",
+        "alias": "myAsset2",
         "version": "2.0",
         "target": "echo.vbs"
     };
@@ -59,9 +59,9 @@ function downloadV2() {
 
 async function initWithOpenFin(){
     alert("OpenFin is available");
-    await runMyAsset();
+    await runMyAsset("myAsset");
     await downloadV2();
-    await runMyAsset();
+    await runMyAsset("myAsset2");
     // Your OpenFin specific code to go here...
 }
 
