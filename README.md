@@ -87,9 +87,9 @@ You now have an ultra-minimal web app ready to packaged up as an OpenFin app.
 ### 2.1 Create an OpenFin config file
 This is the file which will specify how your OpenFin app appears and behaves. 
 
-Create a file, in the src directory, called **app_local.json**. You may name the file whatever you like as long as it is correctly targeted when generating the installer (of which, more later). You may create a number of app.json files, e.g. for local, alpha, beta and staging versions of your app.
+Create a file, in the src directory, called **app.json**. You may name the file whatever you like as long as it is correctly targeted when generating the installer (of which, more later). You may create a number of app.json files, e.g. for local, alpha, beta and staging versions of your app.
 
-Add the following code to the app_local.json:
+Add the following code to the app.json:
 
 ```
 {
@@ -126,13 +126,13 @@ A full list and explanation of configurable properties may be found [here](https
 The installer is generated via a url, like this:
 
 ```
-https://install.openfin.co/download?fileName=openfin_appseed&config=http://localhost:9070/app_local.json 
+https://install.openfin.co/download?fileName=openfin_appseed&config=http://localhost:9070/app.json 
 ```
 The parts of the url are as follows:
 
 - **https://install.openfin.co/download :** The path to OpenFin's app generator-this must not be altered.
 - **?fileName=nameOfTheGeneratedInstallerApp :** The name you wish the installer to have once downloaded.
-- **&config=http://localhost:9070/app_local.json :** The url to the config file created in step 2.1.
+- **&config=http://localhost:9070/app.json :** The url to the config file created in step 2.1.
 
 Navigate to the URL in a web browser. It will download an .exe file. Run the file. You should see your OpenFin **Hello World** app.
 
