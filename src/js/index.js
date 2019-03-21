@@ -14,10 +14,28 @@ function init(){
     }catch(err){
         initNoOpenFin();
     }
-};
+}
 
-function initWithOpenFin(){
-    alert("OpenFin is available");
+function runMyAsset() {
+    return new Promise((resolve, reject) => {
+        fin.desktop.System.launchExternalProcess({
+            alias: "myAsset",
+            listener: function (result) {
+                console.log('the exit code', result.exitCode);
+                resolve();
+            }
+        }, function (payload) {
+            console.log('Success:', payload.uuid);
+        }, function (error) {
+            console.log('Error:', error);
+            reject(error);
+        });
+
+    })
+}
+
+async function initWithOpenFin(){
+    await runMyAsset();
     // Your OpenFin specific code to go here...
 }
 
