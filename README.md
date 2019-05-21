@@ -1,5 +1,12 @@
 # OpenFin How To: Hello World
 
+## Bug
+When downloading two assets, the RVM logs that it is going to download both assets to the same location
+e.g.
+```
+19-05-21 16:17:57.667 | 8060:4456 | INFO | VERBOSE | Request created to retrieve app asset from: http://tallarium.me:9070/assets/assetv1.zip and will place it here: "apps\OpenFin_appseed_482924875\assets\myAsset-2\2.0"
+19-05-21 16:17:57.667 | 8060:4456 | INFO | VERBOSE | Request created to retrieve app asset from: http://tallarium.me:9070/assets/assetv2.zip and will place it here: "apps\OpenFin_appseed_482924875\assets\myAsset-2\2.0"
+```
 ## Prerequisites
 
 You will need:
