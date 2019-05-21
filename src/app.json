@@ -22,6 +22,12 @@
       "alias": "myAsset",
       "version": "1.0",
       "target": "echo.vbs"
+    },
+    {
+      "src": "http://localhost:9070/assets/assetv2.zip",
+      "alias": "myAsset-2",
+      "version": "2.0",
+      "target": "echo.vbs"
     }
   ]
 }
