@@ -1,5 +1,14 @@
 # OpenFin How To: Hello World
 
+## Bug
+If javascript app starts up after the .Net app has already connected to the runtime, if assets need to be downloaded, javascript won't be able to query those assets.  This results in the error `Found no information on requested alias`
+
+### Repo steps
+- Delete the assets %localappdata% install of the app
+- Start the .Net OpenfinDesktop.exe
+- Start the Web App
+- The console will show the error `Found no information on requested alias`
+
 ## Prerequisites
 
 You will need:
