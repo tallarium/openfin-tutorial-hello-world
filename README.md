@@ -1,5 +1,15 @@
 # OpenFin How To: Hello World
 
+## Bug
+.NET adapter doesn't respect rvmInstallDirectory registry key
+
+### Repo steps
+- Edit `HKEY_CURRENT_USER\Software\OpenFin\RVM\Settings\Deployment` - `rvmInstallDirectory="%localappdata%\\NotOpenFin"`
+- Delete (or rename) the `%localappdata%\OpenFin`
+- Start the .Net OpenfinDesktop.exe
+- OpenFinRVM will be downloaded to `%localappdata%\OpenFin`
+
+
 ## Prerequisites
 
 You will need:
