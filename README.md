@@ -1,13 +1,20 @@
 # OpenFin How To: Hello World
 
 ## Bug
-.NET adapter doesn't respect rvmInstallDirectory registry key
+.NET adapter depends on Ionic.zip in DotNetZip.
+The contents of DotNetZip changes so that Ionic.zip was renamed DotNet.zip
+If `%localappdata%\OpenFin\OpenFinRVM.exe` is missing this results in an exception at start up
+```
+System.IO.FileNotFoundException: Could not load file or assembly 'Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c' or one of its dependencies. The system cannot find the file specified.
+```
+If `%localappdata%\OpenFin\OpenFinRVM.exe` exists, then the application starts as expected.
+Note that with the registry settings, the adapter shouldn't be looking in this location.
 
 ### Repo steps
 - Edit `HKEY_CURRENT_USER\Software\OpenFin\RVM\Settings\Deployment` - `rvmInstallDirectory="%localappdata%\\NotOpenFin"`
 - Delete (or rename) the `%localappdata%\OpenFin`
 - Start the .Net OpenfinDesktop.exe
-- OpenFinRVM will be downloaded to `%localappdata%\OpenFin`
+- Exception will be thrown
 
 
 ## Prerequisites
