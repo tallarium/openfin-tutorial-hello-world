@@ -5,7 +5,13 @@
     "description": "A vanilla appseed for OpenFin applications",
     "url": "http://localhost:9070",
     "uuid": "openfin-closing-events-demo",
-    "autoShow": true
+    "autoShow": true,
+      "permissions": {
+        "System": {
+          "launchExternalProcess": true,
+          "downloadAsset": true
+        }
+      }
   },
   "runtime": {
     "version": "13.76.45.13"

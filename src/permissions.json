@@ -1,0 +1,61 @@
+{
+    "applicationSettings": {
+      "MyPolicies": {
+        "urls": ["http://localhost:9070/app.json"],
+        "permissions": {
+          "Application": {
+            "setShortcuts": false
+          },
+          "System": {
+            "clearCache": false,
+            "deleteCacheOnExit": false,
+            "downloadAsset": true,
+            "downloadPreloadScripts": false,
+            "downloadRuntime": false,
+            "exit": false,
+            "getCommandLineArguments": false,
+            "getConfig": false,
+            "getCookies": false,
+            "getDeviceId": false,
+            "getDeviceUserId": false,
+            "getEnvironmentVariable": false,
+            "getHostSpecs": false,
+            "getLog": false,
+            "getLogList": false,
+            "getMonitorInfo": false,
+            "getMousePosition": false,
+            "getProcessList": false,
+            "getRemoteConfig": false,
+            "launchExternalProcess": true,
+            "monitorExternalProcess": false,
+            "readRegistryValue": false,
+            "releaseExternalProcess": false,
+            "terminateExternalProcess": false,
+            "setClipboard": false,
+            "Clipboard": {
+                "clipboardAvailableFormats": false,
+                "clipboardReadHtml": false,
+                "clipboardReadRtf": false,
+                "clipboardReadText": false,
+                "clipboardWrite": false,
+                "clipboardWriteHtml": false,
+                "clipboardWriteRtf": false,
+                "clipboardWriteText": false
+            }
+          },
+          "Window": {
+            "executeJavaScript": true,
+            "getNativeId": false,
+            "getSnapshot": false
+          }
+        }
+      },
+      "default": {
+        "permissions": {
+          "System": {
+            "launchExternalProcess": true
+          }
+        }
+      }
+    }
+  }
