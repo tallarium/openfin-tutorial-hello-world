@@ -14,6 +14,7 @@
   "shortcut": {
     "company": "OpenFin",
     "description": "OpenFin appseed",
-    "name": "OpenFin appseed"
+    "name": "OpenFin appseed",
+    "icon": "http://cdn.openfin.co/hyperblotter/favicon.ico"
   }
 }
