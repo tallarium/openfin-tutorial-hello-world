@@ -1,5 +1,15 @@
 # OpenFin How To: Hello World
 
+## Bug
+When the version of the runtime is different between the OpenFin application and C# project, the RVM logs show a `Failed to read the app event payload` error.
+
+Sometimes the `app.Closed` event does not fire
+
+Reproduction:
+- Start the .Net application
+- Start the OpenFin application
+- Close the OpenFin application
+
 ## Prerequisites
 
 You will need:
