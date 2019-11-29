@@ -3,13 +3,12 @@
 ## Bug
 When the version of the runtime is different between the OpenFin application and C# project, the RVM logs show a `Failed to read the app event payload` error.
 
-With some combinations of runtimes `app.Closed` event fires inconsistently.
-Running 14.78.45.31 against 13.76.44.21, `app.Closed` never fires.
+With some combinations of runtimes isRunning returns false even when app is running
 
 Reproduction:
-- Start the .Net application
 - Start the OpenFin application
-- Close the OpenFin application
+- Start the .Net application
+- Console will write `Running: False`
 
 ## Prerequisites
 
