@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
@@ -15,8 +15,7 @@ namespace OpenfinDesktop
     {
         ChromeDriver driver;
 
-        [SetUp]
-        public void StartBrowser()
+        public void StartOpenfinApp()
         {
             var options = new ChromeOptions();
             string dir = Path.GetDirectoryName(GetType().Assembly.Location);
@@ -29,16 +28,21 @@ namespace OpenfinDesktop
         [Test]
         public void Test()
         {
+            StartOpenfinApp();
             driver.ExecuteScript("alert('My first test')");
         }
 
         [TearDown]
-        public void CloseBrowser()
+        public void StopOpenfinApp()
         {
-            // Neither of the below actually close the OpenFin runtime
-            //driver.Close();
-            //driver.Quit();
-            driver.ExecuteScript("window.close()"); // This does
+            if (driver != null)
+            {
+                // Neither of the below actually close the OpenFin runtime
+                //driver.Close();
+                //driver.Quit();
+                driver.ExecuteScript("window.close()"); // This does
+            }
+            driver = null;
         }
     }
 }
