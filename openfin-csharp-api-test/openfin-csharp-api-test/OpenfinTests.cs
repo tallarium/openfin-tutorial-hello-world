@@ -14,6 +14,8 @@ namespace OpenfinDesktop
 {
     class OpenfinTests
     {
+        private const string OPENFIN_APP_UUID = "openfin-closing-events-demo";
+
         ChromeDriver driver;
 
         public void StartOpenfinApp()
@@ -46,6 +48,12 @@ namespace OpenfinDesktop
             return taskCompletionSource.Task;
         }
 
+        private async Task<Application> GetApplication(string UUID)
+        {
+            Runtime runtime = await ConnectToRuntime();
+            return runtime.WrapApplication(UUID);
+        }
+
         private Task<bool> AppIsRunning(Application app)
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
@@ -72,9 +80,8 @@ namespace OpenfinDesktop
         [Test]
         public async Task IsRunningInitiallyClosed()
         {
-            
-            Runtime runtime = await ConnectToRuntime();
-            Application app = runtime.WrapApplication("openfin-closing-events-demo");
+
+            Application app = await GetApplication(OPENFIN_APP_UUID);
             bool isRunning = await AppIsRunning(app);
 
             Assert.IsFalse(isRunning);
@@ -92,8 +99,7 @@ namespace OpenfinDesktop
 
             StartOpenfinApp();
 
-            Runtime runtime = await ConnectToRuntime();
-            Application app = runtime.WrapApplication("openfin-closing-events-demo");
+            Application app = await GetApplication(OPENFIN_APP_UUID);
 
             bool isRunning = await AppIsRunning(app);
 
