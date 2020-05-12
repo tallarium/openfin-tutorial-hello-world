@@ -115,6 +115,7 @@ namespace OpenfinDesktop
                 //driver.Close();
                 //driver.Quit();
                 driver.ExecuteScript("window.close()"); // This does
+                driver.Quit();
             }
             driver = null;
         }
