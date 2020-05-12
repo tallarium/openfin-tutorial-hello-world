@@ -1,4 +1,4 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Openfin.Desktop;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -110,6 +110,54 @@ namespace OpenfinDesktop
             StartOpenfinApp();
             isRunning = await AppIsRunning(app);
             Assert.IsTrue(isRunning);
+        }
+
+        [Test]
+        public async Task AppEventsInitiallyClosed()
+        {
+            bool startedFired = false;
+            bool closedFired = false;
+
+            Application app = await GetApplication(OPENFIN_APP_UUID);
+            app.Started += (object sender, ApplicationEventArgs e) =>
+            {
+                startedFired = true;
+            };
+
+            app.Closed += (object sender, ApplicationEventArgs e) =>
+            {
+                closedFired = true;
+            };
+
+            StartOpenfinApp();
+            Assert.IsTrue(startedFired);
+            StopOpenfinApp();
+            Assert.IsTrue(closedFired);
+        }
+
+        [Test]
+        public async Task AppEventsInitiallyOpen()
+        {
+            bool startedFired = false;
+            bool closedFired = false;
+
+            StartOpenfinApp();
+
+            Application app = await GetApplication(OPENFIN_APP_UUID);
+            app.Started += (object sender, ApplicationEventArgs e) =>
+            {
+                startedFired = true;
+            };
+
+            app.Closed += (object sender, ApplicationEventArgs e) =>
+            {
+                closedFired = true;
+            };
+
+            StopOpenfinApp();
+            Assert.IsTrue(closedFired);
+            StartOpenfinApp();
+            Assert.IsTrue(startedFired);
         }
 
         [TearDown]
