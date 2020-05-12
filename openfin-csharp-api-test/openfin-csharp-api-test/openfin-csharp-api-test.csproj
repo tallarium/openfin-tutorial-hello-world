@@ -95,7 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FirstTest.cs" />
+    <Compile Include="OpenfinTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

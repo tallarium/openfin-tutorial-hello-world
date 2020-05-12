@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace OpenfinDesktop
 {
-    class FirstTest
+    class OpenfinTests
     {
         ChromeDriver driver;
 
