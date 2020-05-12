@@ -61,7 +61,7 @@ namespace OpenfinDesktop
             app.isRunning((Ack ack) =>
             {
                 bool isRunning = ack.getJsonObject().Value<bool>("data");
-                taskCompletionSource.TrySetResult(isRunning);
+                taskCompletionSource.SetResult(isRunning);
             }, (Ack ack) =>
             {
                 // Error
