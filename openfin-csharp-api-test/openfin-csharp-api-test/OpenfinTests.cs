@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using Openfin.Desktop;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -18,12 +18,17 @@ namespace OpenfinDesktop
 
         public void StartOpenfinApp()
         {
-            var options = new ChromeOptions();
             string dir = Path.GetDirectoryName(GetType().Assembly.Location);
+
+            var service = ChromeDriverService.CreateDefaultService();
+            service.LogPath = Path.Combine(dir, "chromedriver.log");
+            service.EnableVerboseLogging = true;
+
+            var options = new ChromeOptions();
             options.BinaryLocation = Path.Combine(dir, "RunOpenFin.bat");
             options.AddArgument("--config=http://localhost:9070/app.json");
             options.AddArgument("--remote-debugging-port=4444");
-            driver = new ChromeDriver(options);
+            driver = new ChromeDriver(service, options);
         }
 
         private Task<Runtime> ConnectToRuntime()
