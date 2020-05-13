@@ -1,15 +1,25 @@
 {
   "devtools_port": 9090,
-  "startup_app": {
-    "name": "OpenFin appseed",
-    "description": "A vanilla appseed for OpenFin applications",
-    "url": "http://localhost:9070",
-    "uuid": "openfin-closing-events-demo",
-    "autoShow": true
-  },
   "runtime": {
     "arguments": "",
-    "version": "14.78.46.23"
+    "version": "15.80.49.30"
+  },
+  "platform": {
+    "uuid": "openfin-closing-events-demo",
+    "autoShow": false,
+    "defaultWindowOptions": {
+      "contextMenu": true
+    }
+  },
+  "snapshot": {
+    "windows": [
+      {
+        "defaultWidth": 600,
+        "defaultHeight": 600,
+        "name": "OpenFin appseed",
+        "url": "http://localhost:9070"
+      }
+    ]
   },
   "shortcut": {
     "company": "OpenFin",
