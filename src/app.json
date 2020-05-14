@@ -6,7 +6,7 @@
   },
   "platform": {
     "uuid": "openfin-closing-events-demo",
-    "autoShow": false,
+    "autoShow": true,
     "defaultWindowOptions": {
       "contextMenu": true
     }
