@@ -18,8 +18,17 @@ namespace OpenfinDesktop
         private const string OPENFIN_APP_UUID = "openfin-closing-events-demo";
 
         ChromeDriver driver;
+        HttpFileServer fileServer;
 
         Runtime runtime;
+
+        [SetUp]
+        public void SetUp()
+        {
+            string dir = Path.GetDirectoryName(GetType().Assembly.Location);
+            string dirToServe = Path.Combine(dir, "../../../../src");
+            fileServer = new HttpFileServer(dirToServe, 9070);
+        }
 
         public void StartOpenfinApp()
         {
@@ -174,7 +183,6 @@ namespace OpenfinDesktop
             Assert.IsTrue(startedFired);
         }
 
-        [TearDown]
         public void StopOpenfinApp()
         {
             if (driver != null)
@@ -186,6 +194,16 @@ namespace OpenfinDesktop
                 driver.Quit();
             }
             driver = null;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            if (fileServer != null)
+            {
+                fileServer.Stop();
+            }
+            StopOpenfinApp();
         }
     }
 }
