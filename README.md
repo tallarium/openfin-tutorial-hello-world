@@ -1,5 +1,11 @@
 # OpenFin How To: Hello World
 
+## Bug
+When `autoShow: true`, an extra `Standard Frame Provider` window is created
+
+Reproduction:
+- Start the OpenFin application
+
 ## Prerequisites
 
 You will need:
