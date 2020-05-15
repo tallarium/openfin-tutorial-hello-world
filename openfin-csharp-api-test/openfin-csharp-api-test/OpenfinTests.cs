@@ -5,6 +5,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,8 @@ namespace OpenfinDesktop
 
         ChromeDriver driver;
 
+        Runtime runtime;
+
         public void StartOpenfinApp()
         {
             string dir = Path.GetDirectoryName(GetType().Assembly.Location);
@@ -27,9 +30,19 @@ namespace OpenfinDesktop
             service.EnableVerboseLogging = true;
 
             var options = new ChromeOptions();
-            options.BinaryLocation = Path.Combine(dir, "RunOpenFin.bat");
-            options.AddArgument("--config=http://localhost:9070/app.json");
-            options.AddArgument("--remote-debugging-port=4444");
+
+            string runOpenfinPath = Path.Combine(dir, "RunOpenFin.bat");
+            string appConfigArg = "--config=http://localhost:9070/app.json";
+            if (runtime != null)
+            {
+                options.DebuggerAddress = "localhost:4444";
+                Process.Start(runOpenfinPath, appConfigArg);
+            } else
+            {
+                options.BinaryLocation = runOpenfinPath;
+                options.AddArgument(appConfigArg);
+                options.AddArgument("--remote-debugging-port=4444");
+            }
             driver = new ChromeDriver(service, options);
         }
 
@@ -39,7 +52,8 @@ namespace OpenfinDesktop
 
             RuntimeOptions options = new RuntimeOptions();
             options.Version = "14.78.46.23";
-            Runtime runtime = Openfin.Desktop.Runtime.GetRuntimeInstance(options);
+            options.Arguments = "--remote-debugging-port=4444";
+            runtime = Openfin.Desktop.Runtime.GetRuntimeInstance(options);
             runtime.Connect(() =>
             {
                 taskCompletionSource.SetResult(runtime);
