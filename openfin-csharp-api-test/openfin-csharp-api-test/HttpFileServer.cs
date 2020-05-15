@@ -45,9 +45,24 @@ namespace OpenfinDesktop
             
         private async void ServerLoop()
         {
-            while (true)
+            while (listener.IsListening)
             {
-                var context = await listener.GetContextAsync();
+                HttpListenerContext context; 
+                try
+                {
+                    context = await listener.GetContextAsync();
+                }
+                catch (Exception e)
+                {
+                    if (listener.IsListening == false)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        throw e;
+                    }
+                }
 
                 var request = context.Request;
                 response = context.Response;
