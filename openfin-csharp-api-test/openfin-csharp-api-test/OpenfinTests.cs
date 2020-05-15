@@ -71,6 +71,19 @@ namespace OpenfinDesktop
             return taskCompletionSource.Task;
         }
 
+        private Task<Runtime> DisconnectFromRuntime()
+        {
+            var taskCompletionSource = new TaskCompletionSource<Runtime>();
+
+            if (runtime != null && runtime.IsConnected)
+            runtime.Disconnect(() =>
+            {
+                taskCompletionSource.SetResult(runtime);
+            });
+
+            return taskCompletionSource.Task;
+        }
+
         private async Task<Application> GetApplication(string UUID)
         {
             Runtime runtime = await ConnectToRuntime();
@@ -99,7 +112,7 @@ namespace OpenfinDesktop
             driver.ExecuteScript("alert('My first test')");
         }
 
-        // TODO: This test fails as ChromeDriver fails to connect to OpenFin
+
         [Test]
         public async Task IsRunningInitiallyClosed()
         {
@@ -197,13 +210,15 @@ namespace OpenfinDesktop
         }
 
         [TearDown]
-        public void TearDown()
+        public async Task TearDown()
         {
             if (fileServer != null)
             {
                 fileServer.Stop();
             }
             StopOpenfinApp();
+
+            await DisconnectFromRuntime();
         }
     }
 }
