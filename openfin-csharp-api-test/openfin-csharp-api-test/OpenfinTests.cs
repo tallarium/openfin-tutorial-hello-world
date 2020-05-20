@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using Openfin.Desktop;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -76,10 +76,16 @@ namespace OpenfinDesktop
             var taskCompletionSource = new TaskCompletionSource<Runtime>();
 
             if (runtime != null && runtime.IsConnected)
-            runtime.Disconnect(() =>
+            {
+                runtime.Disconnect(() =>
+                {
+                    taskCompletionSource.SetResult(runtime);
+                });
+            }
+            else
             {
                 taskCompletionSource.SetResult(runtime);
-            });
+            }
 
             return taskCompletionSource.Task;
         }
