@@ -91,124 +91,12 @@ namespace OpenfinDesktop
             return taskCompletionSource.Task;
         }
 
-        private async Task<Application> GetApplication(string UUID)
-        {
-            Runtime runtime = await ConnectToRuntime();
-            return runtime.WrapApplication(UUID);
-        }
-
-        private Task<bool> AppIsRunning(Application app)
-        {
-            var taskCompletionSource = new TaskCompletionSource<bool>();
-
-            app.isRunning((Ack ack) =>
-            {
-                bool isRunning = ack.getJsonObject().Value<bool>("data");
-                taskCompletionSource.SetResult(isRunning);
-            }, (Ack ack) =>
-            {
-                // Error
-            });
-            return taskCompletionSource.Task;
-        }
-
-        [Test]
-        public void Test()
-        {
-            StartOpenfinApp();
-            driver.ExecuteScript("alert('My first test')");
-        }
-
-
-        [Test]
-        public async Task IsRunningInitiallyClosed()
-        {
-
-            Application app = await GetApplication(OPENFIN_APP_UUID);
-            bool isRunning = await AppIsRunning(app);
-
-            Assert.IsFalse(isRunning);
-            StartOpenfinApp();
-            isRunning = await AppIsRunning(app);
-            Assert.IsTrue(isRunning);
-            StopOpenfinApp();
-            isRunning = await AppIsRunning(app);
-            Assert.IsFalse(isRunning);
-        }
-
-        [Test]
-        public async Task IsRunningInitiallyOpen()
-        {
-
-            StartOpenfinApp();
-
-            Application app = await GetApplication(OPENFIN_APP_UUID);
-
-            bool isRunning = await AppIsRunning(app);
-
-            Assert.IsTrue(isRunning);
-            StopOpenfinApp();
-            isRunning = await AppIsRunning(app);
-            Assert.IsFalse(isRunning);
-            StartOpenfinApp();
-            isRunning = await AppIsRunning(app);
-            Assert.IsTrue(isRunning);
-        }
-
-        [Test]
-        public async Task AppEventsInitiallyClosed()
-        {
-            bool startedFired = false;
-            bool closedFired = false;
-
-            Application app = await GetApplication(OPENFIN_APP_UUID);
-            app.Started += (object sender, ApplicationEventArgs e) =>
-            {
-                startedFired = true;
-            };
-
-            app.Closed += (object sender, ApplicationEventArgs e) =>
-            {
-                closedFired = true;
-            };
-
-            StartOpenfinApp();
-            Assert.IsTrue(startedFired);
-            StopOpenfinApp();
-            Assert.IsTrue(closedFired);
-        }
-
-        [Test]
-        public async Task AppEventsInitiallyOpen()
-        {
-            bool startedFired = false;
-            bool closedFired = false;
-
-            StartOpenfinApp();
-
-            Application app = await GetApplication(OPENFIN_APP_UUID);
-            app.Started += (object sender, ApplicationEventArgs e) =>
-            {
-                startedFired = true;
-            };
-
-            app.Closed += (object sender, ApplicationEventArgs e) =>
-            {
-                closedFired = true;
-            };
-
-            StopOpenfinApp();
-            Assert.IsTrue(closedFired);
-            StartOpenfinApp();
-            Assert.IsTrue(startedFired);
-        }
-
         [Test]
         public void ResizeUsingChromeDriver()
         {
             StartOpenfinApp();
             IWindow window = driver.Manage().Window;
-            Point initialPos = window.Position; // Crashes here
+            Point initialPos = window.Position; // Crashes here - Browser window not found
             Point newPos = new Point(initialPos.X + 75, initialPos.Y + 180);
             window.Position = newPos;
             driver.ExecuteScript("alert('Done')");
