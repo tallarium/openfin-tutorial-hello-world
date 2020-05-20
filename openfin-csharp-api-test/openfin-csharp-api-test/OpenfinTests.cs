@@ -6,6 +6,7 @@ using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -200,6 +201,37 @@ namespace OpenfinDesktop
             Assert.IsTrue(closedFired);
             StartOpenfinApp();
             Assert.IsTrue(startedFired);
+        }
+
+        [Test]
+        public void ResizeUsingChromeDriver()
+        {
+            StartOpenfinApp();
+            IWindow window = driver.Manage().Window;
+            Point initialPos = window.Position; // Crashes here
+            Point newPos = new Point(initialPos.X + 75, initialPos.Y + 180);
+            window.Position = newPos;
+            driver.ExecuteScript("alert('Done')");
+        }
+
+        [Test]
+        public void ResizeUsingOpenfinAPI()
+        {
+            StartOpenfinApp();
+            var script = $@"
+alert('Resizing')
+const app = fin.Application.getCurrentSync();
+const win = await app.getWindow();
+const bounds = {{
+    height: 100,
+    width: 200,
+    top: 400,
+    left: 400
+}}
+await win.setBounds(bounds);
+alert('Resized');
+";
+            driver.ExecuteScript(script);
         }
 
         public void StopOpenfinApp()
