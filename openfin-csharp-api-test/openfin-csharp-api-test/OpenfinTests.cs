@@ -216,10 +216,8 @@ namespace OpenfinDesktop
         [TearDown]
         public async Task TearDown()
         {
-            if (fileServer != null)
-            {
-                fileServer.Stop();
-            }
+            fileServer?.Stop();
+
             StopOpenfinApp();
 
             await DisconnectFromRuntime();
