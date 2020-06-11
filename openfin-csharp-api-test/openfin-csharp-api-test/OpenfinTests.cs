@@ -17,6 +17,11 @@ namespace OpenfinDesktop
     {
         private const string OPENFIN_APP_UUID = "openfin-closing-events-demo";
 
+        private const string OPENFIN_ADAPTER_RUNTIME = "14.78.46.23"; // OpenFin app runtime is defined in app.json
+
+        private const int FILE_SERVER_PORT = 9070;
+        private const int REMOTE_DEBUGGING_PORT = 4444;
+
         ChromeDriver driver;
         HttpFileServer fileServer;
 
@@ -27,7 +32,8 @@ namespace OpenfinDesktop
         {
             string dir = Path.GetDirectoryName(GetType().Assembly.Location);
             string dirToServe = Path.Combine(dir, "../../../../src");
-            fileServer = new HttpFileServer(dirToServe, 9070);
+            // Serve OpenFin app assets
+            fileServer = new HttpFileServer(dirToServe, FILE_SERVER_PORT);
         }
 
         public void StartOpenfinApp()
@@ -41,7 +47,7 @@ namespace OpenfinDesktop
             var options = new ChromeOptions();
 
             string runOpenfinPath = Path.Combine(dir, "RunOpenFin.bat");
-            string appConfigArg = "--config=http://localhost:9070/app.json";
+            string appConfigArg = String.Format("--config=http://localhost:{0}/app.json", FILE_SERVER_PORT);
             if (runtime != null)
             {
                 options.DebuggerAddress = "localhost:4444";
@@ -50,7 +56,7 @@ namespace OpenfinDesktop
             {
                 options.BinaryLocation = runOpenfinPath;
                 options.AddArgument(appConfigArg);
-                options.AddArgument("--remote-debugging-port=4444");
+                options.AddArgument(String.Format("--remote-debugging-port={0}", REMOTE_DEBUGGING_PORT));
             }
             driver = new ChromeDriver(service, options);
         }
@@ -60,8 +66,8 @@ namespace OpenfinDesktop
             var taskCompletionSource = new TaskCompletionSource<Runtime>();
 
             RuntimeOptions options = new RuntimeOptions();
-            options.Version = "14.78.46.23";
-            options.Arguments = "--remote-debugging-port=4444";
+            options.Version = OPENFIN_ADAPTER_RUNTIME;
+            options.Arguments = String.Format("--remote-debugging-port={0}", REMOTE_DEBUGGING_PORT);
             runtime = Openfin.Desktop.Runtime.GetRuntimeInstance(options);
             runtime.Connect(() =>
             {
