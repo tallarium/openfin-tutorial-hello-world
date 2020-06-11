@@ -118,14 +118,6 @@ namespace OpenfinDesktop
         }
 
         [Test]
-        public void Test()
-        {
-            StartOpenfinApp();
-            driver.ExecuteScript("alert('My first test')");
-        }
-
-
-        [Test]
         public async Task IsRunningInitiallyClosed()
         {
 
