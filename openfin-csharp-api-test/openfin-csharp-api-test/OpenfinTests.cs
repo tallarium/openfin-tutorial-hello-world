@@ -18,7 +18,7 @@ namespace OpenfinDesktop
     {
         private const string OPENFIN_APP_UUID = "openfin-tests";
 
-        public const string OPENFIN_ADAPTER_RUNTIME = "14.78.46.23";
+        public const string OPENFIN_ADAPTER_RUNTIME = "16.83.51.22";
         public string OPENFIN_APP_RUNTIME = "";
 
         private bool shareRuntime
@@ -343,8 +343,7 @@ const bounds = {{
     const snapshot = await platform.getSnapshot(); // Raises 'no action registered' exception
     return JSON.stringify(snapshot)
 ";
-            //var snapshot = driver.ExecuteScript(createSnapshotScript);
-            string snapshot = @"{""snapshotDetails"":{""timestamp"":""2020-05-21T15:43:37.533Z"",""runtimeVersion"":""15.80.49.30"",""monitorInfo"":{""deviceScaleFactor"":2,""dpi"":{""x"":192,""y"":192},""nonPrimaryMonitors"":[],""primaryMonitor"":{""available"":{""dipRect"":{""top"":23,""bottom"":849,""left"":0,""right"":1440},""scaledRect"":{""top"":46,""bottom"":1698,""left"":0,""right"":2880}},""availableRect"":{""top"":23,""bottom"":849,""left"":0,""right"":1440},""deviceId"":""\\\\?\\DISPLAY#PRL5000#5&140b9d70&0&UID0#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}"",""deviceScaleFactor"":2,""displayDeviceActive"":true,""dpi"":{""x"":192,""y"":192},""monitor"":{""dipRect"":{""top"":0,""bottom"":900,""left"":0,""right"":1440},""scaledRect"":{""top"":0,""bottom"":1800,""left"":0,""right"":2880}},""monitorRect"":{""top"":0,""bottom"":900,""left"":0,""right"":1440},""name"":""\\\\.\\DISPLAY1""},""reason"":""api-query"",""taskbar"":{""dipRect"":{""top"":860,""bottom"":900,""left"":0,""right"":1440},""edge"":""bottom"",""rect"":{""top"":860,""bottom"":900,""left"":0,""right"":1440},""scaledRect"":{""top"":1720,""bottom"":1800,""left"":0,""right"":2880}},""virtualScreen"":{""top"":0,""bottom"":900,""left"":0,""right"":1440,""dipRect"":{""top"":0,""bottom"":900,""left"":0,""right"":1440},""scaledRect"":{""top"":0,""bottom"":1800,""left"":0,""right"":2880}}}},""windows"":[{""autoShow"":true,""contextMenuSettings"":{""enable"":true,""devtools"":true,""reload"":false},""defaultCentered"":false,""defaultHeight"":300,""defaultLeft"":100,""defaultTop"":150,""defaultWidth"":200,""maxHeight"":-1,""maxWidth"":-1,""maximizable"":true,""minHeight"":200,""minWidth"":200,""minimizable"":true,""name"":""OpenFin appseed"",""resizable"":true,""resizeRegion"":{""bottomRightCorner"":20,""size"":7,""sides"":{""top"":true,""right"":true,""bottom"":true,""left"":true}},""saveWindowState"":false,""state"":""normal"",""url"":""http://localhost:9070/index.html"",""title"":""OpenFin appseed"",""height"":300,""width"":200,""x"":100,""y"":150}]}";
+            string snapshot = driver.ExecuteScript(createSnapshotScript) as string;
             StopOpenfinApp();
             StartOpenfinApp();
 
