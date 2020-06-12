@@ -3,13 +3,13 @@
   "startup_app": {
     "name": "OpenFin appseed",
     "description": "A vanilla appseed for OpenFin applications",
-    "url": "http://localhost:9070",
-    "uuid": "openfin-closing-events-demo",
+    "url": "http://localhost:9070/index.html",
+    "uuid": "openfin-tests",
     "autoShow": true
   },
   "runtime": {
     "arguments": "",
-    "version": "stable"
+    "version": "14.78.46.23"
   },
   "shortcut": {
     "company": "OpenFin",
