@@ -12,4 +12,4 @@ e.g. OpenFin runtime 14.78.46.2 requires Selenium.WebDriver.ChromeDriver 78
 You can select the correct version of Selenium.WebDriver.ChromeDriver in the nuget package manager.
 
 ## Limitations
-Currently each nunit needs to run independently to ensure they run successfully.
+Currently each nunit test needs to run independently to ensure they run successfully.
