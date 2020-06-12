@@ -4,7 +4,7 @@
     "name": "OpenFin appseed",
     "description": "A vanilla appseed for OpenFin applications",
     "url": "http://localhost:9070/index.html",
-    "uuid": "openfin-closing-events-demo",
+    "uuid": "openfin-tests",
     "autoShow": true
   },
   "runtime": {

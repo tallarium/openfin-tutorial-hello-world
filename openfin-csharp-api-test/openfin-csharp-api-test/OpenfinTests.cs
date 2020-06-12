@@ -15,7 +15,7 @@ namespace OpenfinDesktop
 {
     class OpenfinTests
     {
-        private const string OPENFIN_APP_UUID = "openfin-closing-events-demo";
+        private const string OPENFIN_APP_UUID = "openfin-tests";
 
         private const string OPENFIN_ADAPTER_RUNTIME = "14.78.46.23"; // OpenFin app runtime is defined in app.json
 
