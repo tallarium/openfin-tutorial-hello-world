@@ -20,6 +20,11 @@ namespace OpenfinDesktop
         private const string OPENFIN_ADAPTER_RUNTIME = "14.78.46.23";
         private string OPENFIN_APP_RUNTIME = "";
 
+        private bool shareRuntime
+        {
+            get => OPENFIN_APP_RUNTIME == OPENFIN_ADAPTER_RUNTIME;
+        }
+
         private const int FILE_SERVER_PORT = 9070;
         private const int REMOTE_DEBUGGING_PORT = 4444;
 
@@ -53,7 +58,7 @@ namespace OpenfinDesktop
 
             string runOpenfinPath = Path.Combine(dir, "RunOpenFin.bat");
             string appConfigArg = String.Format("--config={0}", APP_CONFIG_URL);
-            if (runtime != null)
+            if (shareRuntime && runtime != null)
             {
                 options.DebuggerAddress = "localhost:4444";
                 Process.Start(runOpenfinPath, appConfigArg);
@@ -72,7 +77,7 @@ namespace OpenfinDesktop
 
             RuntimeOptions options = new RuntimeOptions();
             options.Version = OPENFIN_ADAPTER_RUNTIME;
-            options.Arguments = String.Format("--remote-debugging-port={0}", REMOTE_DEBUGGING_PORT);
+            options.Arguments = shareRuntime ? String.Format("--remote-debugging-port={0}", REMOTE_DEBUGGING_PORT) : "";
             runtime = Openfin.Desktop.Runtime.GetRuntimeInstance(options);
             runtime.Connect(() =>
             {
