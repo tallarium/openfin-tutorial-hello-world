@@ -23,6 +23,8 @@ namespace OpenfinDesktop
         private const int FILE_SERVER_PORT = 9070;
         private const int REMOTE_DEBUGGING_PORT = 4444;
 
+        private readonly string APP_CONFIG_URL = String.Format("http://localhost:{0}/app.json", FILE_SERVER_PORT);
+
         ChromeDriver driver;
         HttpFileServer fileServer;
 
@@ -35,7 +37,7 @@ namespace OpenfinDesktop
             string dirToServe = Path.Combine(dir, "../../../../src");
             // Serve OpenFin app assets
             fileServer = new HttpFileServer(dirToServe, FILE_SERVER_PORT);
-            RuntimeOptions appOptions = RuntimeOptions.LoadManifest(new Uri("http://localhost:9070/app.json"));
+            RuntimeOptions appOptions = RuntimeOptions.LoadManifest(new Uri(APP_CONFIG_URL));
             OPENFIN_APP_RUNTIME = appOptions.Version;
         }
 
@@ -50,7 +52,7 @@ namespace OpenfinDesktop
             var options = new ChromeOptions();
 
             string runOpenfinPath = Path.Combine(dir, "RunOpenFin.bat");
-            string appConfigArg = String.Format("--config=http://localhost:{0}/app.json", FILE_SERVER_PORT);
+            string appConfigArg = String.Format("--config={0}", APP_CONFIG_URL);
             if (runtime != null)
             {
                 options.DebuggerAddress = "localhost:4444";
