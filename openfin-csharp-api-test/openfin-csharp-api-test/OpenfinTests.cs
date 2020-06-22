@@ -17,7 +17,8 @@ namespace OpenfinDesktop
     {
         private const string OPENFIN_APP_UUID = "openfin-tests";
 
-        private const string OPENFIN_ADAPTER_RUNTIME = "14.78.46.23"; // OpenFin app runtime is defined in app.json
+        private const string OPENFIN_ADAPTER_RUNTIME = "14.78.46.23";
+        private string OPENFIN_APP_RUNTIME = "";
 
         private const int FILE_SERVER_PORT = 9070;
         private const int REMOTE_DEBUGGING_PORT = 4444;
@@ -34,6 +35,8 @@ namespace OpenfinDesktop
             string dirToServe = Path.Combine(dir, "../../../../src");
             // Serve OpenFin app assets
             fileServer = new HttpFileServer(dirToServe, FILE_SERVER_PORT);
+            RuntimeOptions appOptions = RuntimeOptions.LoadManifest(new Uri("http://localhost:9070/app.json"));
+            OPENFIN_APP_RUNTIME = appOptions.Version;
         }
 
         public void StartOpenfinApp()
