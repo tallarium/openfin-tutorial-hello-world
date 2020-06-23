@@ -28,7 +28,8 @@ namespace OpenfinDesktop
         private const int FILE_SERVER_PORT = 9070;
         private const int REMOTE_DEBUGGING_PORT = 4444;
 
-        private readonly string APP_CONFIG_URL = String.Format("http://localhost:{0}/app.json", FILE_SERVER_PORT);
+        private static readonly string FILE_SERVER_ROOT_URL = String.Format("http://localhost:{0}/", FILE_SERVER_PORT);
+        private static readonly string APP_CONFIG_URL = FILE_SERVER_ROOT_URL + "app.json";
 
         ChromeDriver driver;
         HttpFileServer fileServer;
@@ -236,7 +237,7 @@ namespace OpenfinDesktop
 
             Assert.Greater(workingSetSize, 10000000, "working set at least 10MB");
 
-            string returnLocationScript = String.Format("window.location = 'http://localhost:{0}/index.html'", FILE_SERVER_PORT);
+            string returnLocationScript = String.Format("window.location = '{0}index.html'", FILE_SERVER_ROOT_URL);
             driver.ExecuteScript(returnLocationScript);
 
             processInfo = getProcessInfo();
