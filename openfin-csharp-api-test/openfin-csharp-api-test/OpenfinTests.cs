@@ -113,6 +113,7 @@ namespace OpenfinDesktop
             }, (Ack ack) =>
             {
                 // Error
+                taskCompletionSource.SetException(new Exception(ack.getJsonObject().ToString()));
             });
             return taskCompletionSource.Task;
         }
