@@ -211,6 +211,42 @@ namespace OpenfinDesktop
             Assert.IsTrue(startedFired);
         }
 
+        private Dictionary<string, object> getProcessInfo()
+        {
+            string script = "return await fin.System.getProcessList()";
+            driver.ExecuteScript(script); // First call is different to following calls
+            dynamic processList = driver.ExecuteScript(script);
+            return processList[0] as Dictionary<string, object>;
+        }
+
+        [Test]
+        public void GetProcessList()
+        {
+            StartOpenfinApp();
+
+            var processInfo = getProcessInfo();
+            long origWorkingSetSize = (long)processInfo["workingSetSize"];
+
+            Assert.Greater(origWorkingSetSize, 10000000, "working set at least 10MB");
+
+            driver.ExecuteScript("window.location = 'http://www.google.co.uk'");
+
+            processInfo = getProcessInfo();
+            long workingSetSize = (long)processInfo["workingSetSize"];
+
+            Assert.Greater(workingSetSize, 10000000, "working set at least 10MB");
+
+            string returnLocationScript = String.Format("window.location = 'http://localhost:{0}/index.html'", FILE_SERVER_PORT);
+            driver.ExecuteScript(returnLocationScript);
+
+            processInfo = getProcessInfo();
+            workingSetSize = (long)processInfo["workingSetSize"];
+
+            Assert.Greater(workingSetSize, 10000000, "working set at least 10MB");
+            Assert.Greater(workingSetSize, origWorkingSetSize * 0.7, "Similar size to original working set");
+            Assert.Less(workingSetSize, origWorkingSetSize * 1.3, "Similar size to original working set");
+        }
+
         public void StopOpenfinApp()
         {
             if (driver != null)
