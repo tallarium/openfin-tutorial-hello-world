@@ -28,7 +28,8 @@ namespace OpenfinDesktop
         private const int FILE_SERVER_PORT = 9070;
         private const int REMOTE_DEBUGGING_PORT = 4444;
 
-        private readonly string APP_CONFIG_URL = String.Format("http://localhost:{0}/app.json", FILE_SERVER_PORT);
+        private static readonly string FILE_SERVER_ROOT_URL = String.Format("http://localhost:{0}/", FILE_SERVER_PORT);
+        private static readonly string APP_CONFIG_URL = FILE_SERVER_ROOT_URL + "app.json";
 
         ChromeDriver driver;
         HttpFileServer fileServer;
@@ -209,6 +210,44 @@ namespace OpenfinDesktop
             Assert.IsTrue(closedFired);
             StartOpenfinApp();
             Assert.IsTrue(startedFired);
+        }
+
+        private Dictionary<string, object> getProcessInfo()
+        {
+            string script = "return await fin.System.getProcessList()";
+            driver.ExecuteScript(script); // First call is different to following calls
+            dynamic processList = driver.ExecuteScript(script);
+            return processList[0] as Dictionary<string, object>;
+        }
+
+        [Test]
+        public async Task GetProcessList()
+        {
+            StartOpenfinApp();
+
+            var processInfo = getProcessInfo();
+            long origWorkingSetSize = (long)processInfo["workingSetSize"];
+
+            Assert.Greater(origWorkingSetSize, 10000000, "working set at least 10MB");
+
+            driver.ExecuteScript("window.location = 'http://www.google.co.uk'");
+            await Task.Delay(2000);
+
+            processInfo = getProcessInfo();
+            long workingSetSize = (long)processInfo["workingSetSize"];
+
+            Assert.Greater(workingSetSize, 10000000, "working set at least 10MB");
+
+            string returnLocationScript = String.Format("window.location = '{0}index.html'", FILE_SERVER_ROOT_URL);
+            driver.ExecuteScript(returnLocationScript);
+            await Task.Delay(2000);
+
+            processInfo = getProcessInfo();
+            workingSetSize = (long)processInfo["workingSetSize"];
+
+            Assert.Greater(workingSetSize, 10000000, "working set at least 10MB");
+            Assert.Greater(workingSetSize, origWorkingSetSize * 0.7, "Similar size to original working set");
+            Assert.Less(workingSetSize, origWorkingSetSize * 1.3, "Similar size to original working set");
         }
 
         public void StopOpenfinApp()
