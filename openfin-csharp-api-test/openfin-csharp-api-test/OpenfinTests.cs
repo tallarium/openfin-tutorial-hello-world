@@ -221,7 +221,7 @@ namespace OpenfinDesktop
         }
 
         [Test]
-        public void GetProcessList()
+        public async Task GetProcessList()
         {
             StartOpenfinApp();
 
@@ -231,6 +231,7 @@ namespace OpenfinDesktop
             Assert.Greater(origWorkingSetSize, 10000000, "working set at least 10MB");
 
             driver.ExecuteScript("window.location = 'http://www.google.co.uk'");
+            await Task.Delay(2000);
 
             processInfo = getProcessInfo();
             long workingSetSize = (long)processInfo["workingSetSize"];
@@ -239,6 +240,7 @@ namespace OpenfinDesktop
 
             string returnLocationScript = String.Format("window.location = '{0}index.html'", FILE_SERVER_ROOT_URL);
             driver.ExecuteScript(returnLocationScript);
+            await Task.Delay(2000);
 
             processInfo = getProcessInfo();
             workingSetSize = (long)processInfo["workingSetSize"];
