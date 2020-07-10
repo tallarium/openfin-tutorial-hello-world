@@ -1,0 +1,38 @@
+version: 2.1
+
+orbs:
+  windows: circleci/windows@2.4.0
+
+jobs:
+  test:
+    working_directory: ~/repo/openfin-csharp-api-test
+    executor:
+      name: windows/default
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          keys:
+            - openfin-tests-packages-{{ .Branch }}
+      - run:
+          name: "Install project dependencies"
+          command: msbuild /t:Restore
+      - save_cache:
+          paths:
+            - C:\Users\circleci\.nuget\packages
+          key: openfin-tests-packages-{{ .Branch }}
+      - run:
+          name: "Build"
+          command: msbuild /t:Build
+      - run: cd packages\NUnit.ConsoleRunner.3.11.1\tools
+      - run:
+          name: "Tests"
+          command: nunit3-console.exe ..\..\..\openfin-csharp-api-test.sln
+
+
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - test
