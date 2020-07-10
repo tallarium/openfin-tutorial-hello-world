@@ -24,10 +24,9 @@ jobs:
       - run:
           name: "Build"
           command: msbuild /t:Build
-      - run: cd C:\Users\circleci\.nuget\packages\NUnit.ConsoleRunner\3.11.1\tools
       - run:
           name: "Tests"
-          command: nunit3-console.exe ..\..\..\openfin-csharp-api-test.sln
+          command: C:\Users\circleci\.nuget\packages\NUnit.ConsoleRunner\3.11.1\tools\nunit3-console.exe openfin-csharp-api-test.sln
 
 
 
