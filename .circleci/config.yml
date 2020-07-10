@@ -23,7 +23,8 @@ jobs:
             cd C:\Users\circleci\AppData\Local
             mkdir OpenFin
             cd OpenFin
-            curl https://developer.openfin.co/release/rvm/latest --output latest.zip
+            $ProgressPreference = 'SilentlyContinue'
+            Invoke-WebRequest -Uri https://developer.openfin.co/release/rvm/latest -OutFile latest.zip
             expand-archive -path .\latest.zip -destinationpath .
       - save_cache:
           paths:
