@@ -36,8 +36,9 @@ jobs:
           key: openfin-runtimes
       - run:
           name: "Tests"
-          command: C:\Users\circleci\.nuget\packages\NUnit.ConsoleRunner\3.11.1\tools\nunit3-console.exe openfin-csharp-api-test.sln
-
+          command: C:\Users\circleci\.nuget\packages\NUnit.ConsoleRunner\3.11.1\tools\nunit3-console.exe openfin-csharp-api-test.sln --result="~\test-results\junit-results.xml;transform=openfin-csharp-api-test\nunit3-junit.xslt"
+      - store_test_results:
+          path: ~/test-results/
 workflows:
   version: 2
   main:
