@@ -17,8 +17,8 @@ namespace OpenfinDesktop
     {
         private const string OPENFIN_APP_UUID = "openfin-tests";
 
-        private const string OPENFIN_ADAPTER_RUNTIME = "14.78.46.23";
-        private string OPENFIN_APP_RUNTIME = "";
+        public const string OPENFIN_ADAPTER_RUNTIME = "14.78.46.23";
+        public string OPENFIN_APP_RUNTIME = "";
 
         private bool shareRuntime
         {
@@ -72,39 +72,13 @@ namespace OpenfinDesktop
             driver = new ChromeDriver(service, options);
         }
 
-        private Task<Runtime> ConnectToRuntime()
+        private async Task<Runtime> ConnectToRuntime()
         {
-            var taskCompletionSource = new TaskCompletionSource<Runtime>();
+            String arguments = shareRuntime ? String.Format("--remote-debugging-port={0}", REMOTE_DEBUGGING_PORT) : "";
 
-            RuntimeOptions options = new RuntimeOptions();
-            options.Version = OPENFIN_ADAPTER_RUNTIME;
-            options.Arguments = shareRuntime ? String.Format("--remote-debugging-port={0}", REMOTE_DEBUGGING_PORT) : "";
-            runtime = Openfin.Desktop.Runtime.GetRuntimeInstance(options);
-            runtime.Connect(() =>
-            {
-                taskCompletionSource.SetResult(runtime);
-            });
+            runtime = await OpenfinHelpers.ConnectToRuntime(OPENFIN_ADAPTER_RUNTIME, arguments);
 
-            return taskCompletionSource.Task;
-        }
-
-        private Task<Runtime> DisconnectFromRuntime()
-        {
-            var taskCompletionSource = new TaskCompletionSource<Runtime>();
-
-            if (runtime != null && runtime.IsConnected)
-            {
-                runtime.Disconnect(() =>
-                {
-                    taskCompletionSource.SetResult(runtime);
-                });
-            }
-            else
-            {
-                taskCompletionSource.SetResult(runtime);
-            }
-
-            return taskCompletionSource.Task;
+            return runtime;
         }
 
         private async Task<Application> GetApplication(string UUID)
@@ -270,7 +244,7 @@ namespace OpenfinDesktop
 
             StopOpenfinApp();
 
-            await DisconnectFromRuntime();
+            await OpenfinHelpers.DisconnectFromRuntime(runtime);
         }
     }
 }
