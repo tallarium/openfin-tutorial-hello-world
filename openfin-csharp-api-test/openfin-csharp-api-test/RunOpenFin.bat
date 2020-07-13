@@ -32,6 +32,5 @@ echo Debugging port: %debuggingPort%
 SET openfinLocation=%LocalAppData%\OpenFin
 c:
 cd %openfinLocation%
-OpenFinRVM.exe --config=%startupURL% --runtime-arguments="--remote-debugging-port=%debuggingPort%"
-
+openfin -l -c %startupURL%
 ENDLOCAL
