@@ -20,15 +20,6 @@ jobs:
       - run:
           name: "Install openfin-cli"
           command: npm install -g openfin-cli
-      - run:
-          name: "Install OpenfinRVM"
-          command: |
-            cd C:\Users\circleci\AppData\Local
-            mkdir OpenFin
-            cd OpenFin
-            $ProgressPreference = 'SilentlyContinue'
-            Invoke-WebRequest -Uri https://developer.openfin.co/release/rvm/latest -OutFile latest.zip
-            expand-archive -path .\latest.zip -destinationpath .
       - save_cache:
           paths:
             - C:\Users\circleci\.nuget\packages
@@ -37,13 +28,15 @@ jobs:
           name: "Build"
           command: msbuild /t:Build
       - run:
-          name: "Tests"
-          command: C:\Users\circleci\.nuget\packages\NUnit.ConsoleRunner\3.11.1\tools\nunit3-console.exe openfin-csharp-api-test.sln
+          name: "Install OpenFin runtimes"
+          command: openfin-csharp-api-test\bin\Debug\OpenfinDesktopTests.exe
       - save_cache:
           paths:
             - C:\Users\circleci\AppData\Local\OpenFin
           key: openfin-runtimes
-
+      - run:
+          name: "Tests"
+          command: C:\Users\circleci\.nuget\packages\NUnit.ConsoleRunner\3.11.1\tools\nunit3-console.exe openfin-csharp-api-test.sln
 
 workflows:
   version: 2
