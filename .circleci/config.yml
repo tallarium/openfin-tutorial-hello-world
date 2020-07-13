@@ -18,6 +18,9 @@ jobs:
           name: "Install project dependencies"
           command: msbuild /t:Restore
       - run:
+          name: "Install openfin-cli"
+          command: npm install -g openfin-cli
+      - run:
           name: "Install OpenfinRVM"
           command: |
             cd C:\Users\circleci\AppData\Local
