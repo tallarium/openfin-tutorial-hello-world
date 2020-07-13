@@ -27,6 +27,9 @@ jobs:
       - run:
           name: "Build"
           command: msbuild /t:Build
+      - restore_cache:
+          keys:
+            - openfin-runtimes
       - run:
           name: "Install OpenFin runtimes"
           command: openfin-csharp-api-test\bin\Debug\OpenfinDesktopTests.exe
