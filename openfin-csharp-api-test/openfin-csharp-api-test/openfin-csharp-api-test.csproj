@@ -7,7 +7,7 @@
     <ProjectGuid>{4A09D3AE-5C91-4E34-94AE-92C97FB8C3F0}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>OpenfinDesktop</RootNamespace>
-    <AssemblyName>OpenfinDesktop</AssemblyName>
+    <AssemblyName>OpenfinDesktopTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

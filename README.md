@@ -20,8 +20,7 @@ You can select the correct version of Selenium.WebDriver.ChromeDriver in the nug
 ### Command line
 You can run the nunit tests from the command line
 ```
-cd packages\NUnit.ConsoleRunner.3.11.1\tools
-nunit3-console.exe ..\..\..\openfin-csharp-api-test.sln
+%USERPROFILE%\.nuget\packages\NUnit.ConsoleRunner\3.11.1\tools\nunit3-console.exe openfin-csharp-api-test.sln
 ```
 
 ## Limitations
