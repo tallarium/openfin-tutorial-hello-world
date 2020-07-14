@@ -104,18 +104,18 @@ namespace OpenfinDesktop
             return taskCompletionSource.Task;
         }
 
-        private async Task<bool> AppIsEventuallyRunning(Application app, bool expectedState, int timeout)
+        private async Task<bool> IsEventually(Func<bool> getState, bool expectedState, int timeout)
         {
             CancellationTokenSource cancellationToken = new CancellationTokenSource();
             Task<bool> checkIsRunningTask = Task.Run<bool>(async () =>
             {
-                bool isRunning = !expectedState;
-                while (!cancellationToken.IsCancellationRequested && isRunning != expectedState)
+                bool currentState = !expectedState;
+                while (!cancellationToken.IsCancellationRequested && currentState != expectedState)
                 {
                     await Task.Delay(100);
-                    isRunning = await AppIsRunning(app);
+                    currentState = getState();
                 }
-                return isRunning;
+                return currentState;
             });
 
             Task timeoutTask = Task.Delay(timeout, cancellationToken.Token);
@@ -124,6 +124,16 @@ namespace OpenfinDesktop
             cancellationToken.Cancel();
 
             return await checkIsRunningTask;
+        }
+
+        private async Task<bool> AppIsEventuallyRunning(Application app, bool expectedState, int timeout)
+        {
+            return await IsEventually(() =>
+            {
+                Task<bool> isRunningTask = AppIsRunning(app);
+                isRunningTask.Wait();
+                return isRunningTask.Result;
+            }, expectedState, timeout);
         }
 
         [Test]
@@ -179,10 +189,10 @@ namespace OpenfinDesktop
             };
 
             StartOpenfinApp();
-            await Task.Delay(500);
+            await IsEventually(() => { return startedFired; }, true, 500);
             Assert.IsTrue(startedFired, "'Started' event is fired");
             StopOpenfinApp();
-            await Task.Delay(500);
+            await IsEventually(() => { return closedFired; }, true, 500);
             Assert.IsTrue(closedFired, "'Closed' event is fired");
         }
 
@@ -206,10 +216,10 @@ namespace OpenfinDesktop
             };
 
             StopOpenfinApp();
-            await Task.Delay(500);
+            await IsEventually(() => { return closedFired; }, true, 500);
             Assert.IsTrue(closedFired, "'Closed' event is fired");
             StartOpenfinApp();
-            await Task.Delay(500);
+            await IsEventually(() => { return startedFired; }, true, 500);
             Assert.IsTrue(startedFired, "'Started' event is fired");
         }
 
