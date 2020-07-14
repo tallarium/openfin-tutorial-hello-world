@@ -120,7 +120,7 @@ namespace OpenfinDesktop
 
             Task timeoutTask = Task.Delay(timeout, cancellationToken.Token);
             await Task.WhenAny(checkIsRunningTask, timeoutTask);
- 
+
             cancellationToken.Cancel();
 
             return await checkIsRunningTask;
@@ -133,13 +133,13 @@ namespace OpenfinDesktop
             Application app = await GetApplication(OPENFIN_APP_UUID);
             bool isRunning = await AppIsRunning(app);
 
-            Assert.IsFalse(isRunning);
+            Assert.IsFalse(isRunning, "App isRunning (Initially)");
             StartOpenfinApp();
             isRunning = await AppIsEventuallyRunning(app, true, 1000);
-            Assert.IsTrue(isRunning);
+            Assert.IsTrue(isRunning, "App isRunning (After start)");
             StopOpenfinApp();
             isRunning = await AppIsEventuallyRunning(app, false, 1000);
-            Assert.IsFalse(isRunning);
+            Assert.IsFalse(isRunning, "App isRunning (After stop)");
         }
 
         [Test]
@@ -152,13 +152,13 @@ namespace OpenfinDesktop
 
             bool isRunning = await AppIsRunning(app);
 
-            Assert.IsTrue(isRunning);
+            Assert.IsTrue(isRunning, "App isRunning (Initially)");
             StopOpenfinApp();
             isRunning = await AppIsEventuallyRunning(app, false, 1000);
-            Assert.IsFalse(isRunning);
+            Assert.IsFalse(isRunning, "App isRunning (After Stop)");
             StartOpenfinApp();
             isRunning = await AppIsEventuallyRunning(app, true, 1000);
-            Assert.IsTrue(isRunning);
+            Assert.IsTrue(isRunning, "App isRunning (After Start)");
         }
 
         [Test]
@@ -180,10 +180,10 @@ namespace OpenfinDesktop
 
             StartOpenfinApp();
             await Task.Delay(500);
-            Assert.IsTrue(startedFired);
+            Assert.IsTrue(startedFired, "'Started' event is fired");
             StopOpenfinApp();
             await Task.Delay(500);
-            Assert.IsTrue(closedFired);
+            Assert.IsTrue(closedFired, "'Closed' event is fired");
         }
 
         [Test]
@@ -207,10 +207,10 @@ namespace OpenfinDesktop
 
             StopOpenfinApp();
             await Task.Delay(500);
-            Assert.IsTrue(closedFired);
+            Assert.IsTrue(closedFired, "'Closed' event is fired");
             StartOpenfinApp();
             await Task.Delay(500);
-            Assert.IsTrue(startedFired);
+            Assert.IsTrue(startedFired, "'Started' event is fired");
         }
 
         private Dictionary<string, object> getProcessInfo()
