@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OpenfinDesktop
@@ -103,6 +104,28 @@ namespace OpenfinDesktop
             return taskCompletionSource.Task;
         }
 
+        private async Task<bool> AppIsEventuallyRunning(Application app, bool expectedState, int timeout)
+        {
+            CancellationTokenSource cancellationToken = new CancellationTokenSource();
+            Task<bool> checkIsRunningTask = Task.Run<bool>(async () =>
+            {
+                bool isRunning = !expectedState;
+                while (!cancellationToken.IsCancellationRequested && isRunning != expectedState)
+                {
+                    await Task.Delay(100);
+                    isRunning = await AppIsRunning(app);
+                }
+                return isRunning;
+            });
+
+            Task timeoutTask = Task.Delay(timeout, cancellationToken.Token);
+            await Task.WhenAny(checkIsRunningTask, timeoutTask);
+ 
+            cancellationToken.Cancel();
+
+            return await checkIsRunningTask;
+        }
+
         [Test]
         public async Task IsRunningInitiallyClosed()
         {
@@ -112,10 +135,10 @@ namespace OpenfinDesktop
 
             Assert.IsFalse(isRunning);
             StartOpenfinApp();
-            isRunning = await AppIsRunning(app);
+            isRunning = await AppIsEventuallyRunning(app, true, 1000);
             Assert.IsTrue(isRunning);
             StopOpenfinApp();
-            isRunning = await AppIsRunning(app);
+            isRunning = await AppIsEventuallyRunning(app, false, 1000);
             Assert.IsFalse(isRunning);
         }
 
@@ -131,10 +154,10 @@ namespace OpenfinDesktop
 
             Assert.IsTrue(isRunning);
             StopOpenfinApp();
-            isRunning = await AppIsRunning(app);
+            isRunning = await AppIsEventuallyRunning(app, false, 1000);
             Assert.IsFalse(isRunning);
             StartOpenfinApp();
-            isRunning = await AppIsRunning(app);
+            isRunning = await AppIsEventuallyRunning(app, true, 1000);
             Assert.IsTrue(isRunning);
         }
 
