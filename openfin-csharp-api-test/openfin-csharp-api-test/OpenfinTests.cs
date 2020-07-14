@@ -156,8 +156,10 @@ namespace OpenfinDesktop
             };
 
             StartOpenfinApp();
+            await Task.Delay(500);
             Assert.IsTrue(startedFired);
             StopOpenfinApp();
+            await Task.Delay(500);
             Assert.IsTrue(closedFired);
         }
 
@@ -181,8 +183,10 @@ namespace OpenfinDesktop
             };
 
             StopOpenfinApp();
+            await Task.Delay(500);
             Assert.IsTrue(closedFired);
             StartOpenfinApp();
+            await Task.Delay(500);
             Assert.IsTrue(startedFired);
         }
 
