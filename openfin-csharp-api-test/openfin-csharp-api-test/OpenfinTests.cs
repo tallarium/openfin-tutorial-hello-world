@@ -141,7 +141,7 @@ namespace OpenfinDesktop
         {
 
             Application app = await GetApplication(OPENFIN_APP_UUID);
-            bool isRunning = await AppIsRunning(app);
+            bool isRunning = await AppIsEventuallyRunning(app, false, 1000);
 
             Assert.IsFalse(isRunning, "App isRunning (Initially)");
             StartOpenfinApp();
@@ -160,7 +160,7 @@ namespace OpenfinDesktop
 
             Application app = await GetApplication(OPENFIN_APP_UUID);
 
-            bool isRunning = await AppIsRunning(app);
+            bool isRunning = await AppIsEventuallyRunning(app, true, 1000);
 
             Assert.IsTrue(isRunning, "App isRunning (Initially)");
             StopOpenfinApp();
