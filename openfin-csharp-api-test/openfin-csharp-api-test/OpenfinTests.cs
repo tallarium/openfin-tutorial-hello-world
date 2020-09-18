@@ -18,7 +18,7 @@ namespace OpenfinDesktop
     {
         private const string OPENFIN_APP_UUID = "openfin-tests";
 
-        public const string OPENFIN_ADAPTER_RUNTIME = "16.83.51.22";
+        public const string OPENFIN_ADAPTER_RUNTIME = "16.83.53.26";
         public string OPENFIN_APP_RUNTIME = "";
 
         private bool shareRuntime
