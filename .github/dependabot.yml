@@ -1,0 +1,11 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/openfin-csharp-api-test"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 99
+  ignore:
+  - dependency-name: Selenium.WebDriver.ChromeDriver
+    versions:
+    - "> 78.0.3904.10500"
