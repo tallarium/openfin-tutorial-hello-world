@@ -14,11 +14,19 @@ function init(){
     }catch(err){
         initNoOpenFin();
     }
-};
+}
+
+async function addListener() {
+    const w = fin.Window.getCurrentSync()
+    const event = "close-requested"
+    await w.on(event, () => { window.fin.Application.getCurrentSync().close(true); });
+    console.log("Listener count", w.listenerCount(event))
+}
 
 function initWithOpenFin(){
     console.log("OpenFin is available");
     // Your OpenFin specific code to go here...
+    addListener();
 }
 
 function initNoOpenFin(){

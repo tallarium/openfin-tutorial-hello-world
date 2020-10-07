@@ -1,4 +1,15 @@
 # OpenFin Tests
+
+## Bug
+`close-requested` event listener prevents application close even after the handler code is destroyed  (e.g. Change in url)
+- Open the app
+- Console log shows that there is one listener
+- (It is possible to close the app)
+- Click the "Go to page 2" link
+- Console log shows that there are no listeners
+- It is no longer possible to close the app/window
+
+## Tests
 nunit tests for testing the parts of OpenFin framework that we depend on.
 
 OpenFin provide a (pretty inactive) project demonstrating running tests in JavaScript (https://github.com/openfin/hello-openfin-selenium-example)
