@@ -1,15 +1,25 @@
 {
   "devtools_port": 9090,
-  "startup_app": {
-    "name": "OpenFin appseed",
-    "description": "A vanilla appseed for OpenFin applications",
-    "url": "http://localhost:9070/index.html",
-    "uuid": "openfin-tests",
-    "autoShow": true
-  },
   "runtime": {
     "arguments": "--remote-debugging-port=4444",
-    "version": "14.78.46.23"
+    "version": "16.83.53.26"
+  },
+  "platform": {
+    "uuid": "openfin-tests",
+    "autoShow": false,
+    "defaultWindowOptions": {
+      "contextMenu": true
+    }
+  },
+  "snapshot": {
+    "windows": [
+      {
+        "defaultWidth": 600,
+        "defaultHeight": 600,
+        "name": "OpenFin appseed",
+        "url": "http://localhost:9070/index.html"
+      }
+    ]
   },
   "shortcut": {
     "company": "OpenFin",
