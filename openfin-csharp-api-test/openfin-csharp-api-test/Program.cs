@@ -8,13 +8,13 @@ namespace OpenfinDesktop
         static async Task EnsureRuntimes()
         {
             OpenfinTests openfinTests = new OpenfinTests();
-            openfinTests.SetUp();
-            Runtime runtime = await OpenfinHelpers.ConnectToRuntime(openfinTests.OPENFIN_APP_RUNTIME);
-            await OpenfinHelpers.DisconnectFromRuntime(runtime);
-            if (OpenfinTests.OPENFIN_ADAPTER_RUNTIME != openfinTests.OPENFIN_APP_RUNTIME)
-            {
-                await OpenfinHelpers.ConnectToRuntime(OpenfinTests.OPENFIN_ADAPTER_RUNTIME);
-            }
+            //openfinTests.SetUp();
+            //Runtime runtime = await OpenfinHelpers.ConnectToRuntime(openfinTests.OPENFIN_APP_RUNTIME);
+            //await OpenfinHelpers.DisconnectFromRuntime(runtime);
+            //if (OpenfinTests.OPENFIN_ADAPTER_RUNTIME != openfinTests.OPENFIN_APP_RUNTIME)
+            //{
+            await OpenfinHelpers.ConnectToRuntime(OpenfinTests.OPENFIN_ADAPTER_RUNTIME);
+            //}
         }
 
         static void Main(string[] args)
