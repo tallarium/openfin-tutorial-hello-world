@@ -1,5 +1,11 @@
 # OpenFin Tests
-nunit tests for testing the parts of OpenFin framework that we depend on.
+## Bug
+App name never meets requirments
+- `npm run server`
+- `openfin -l -c http://localhost:9070/app.json`
+- `rvm.log` contains `WARNING | VERBOSE | App name: ; does not meet requirements for a valid app name` error
+
+## Testsnunit tests for testing the parts of OpenFin framework that we depend on.
 
 OpenFin provide a (pretty inactive) project demonstrating running tests in JavaScript (https://github.com/openfin/hello-openfin-selenium-example)
 
