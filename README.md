@@ -1,4 +1,15 @@
 # OpenFin Tests
+## Bug
+Calling `ConnectToRuntime` logs `ERROR` messages to `rvm.log`
+- Build `openfin-cshare-api.test.sln`
+- Run `OpenfinDesktopTests.exe`
+- `rvm.log` contains:
+```
+ERROR | VERBOSE | App manifest url scheme is not HTTPS.
+ERROR | VERBOSE | App manifest url has invalid SSL certificate
+```
+
+## Tests
 nunit tests for testing the parts of OpenFin framework that we depend on.
 
 OpenFin provide a (pretty inactive) project demonstrating running tests in JavaScript (https://github.com/openfin/hello-openfin-selenium-example)
