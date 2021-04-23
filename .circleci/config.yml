@@ -35,7 +35,7 @@ jobs:
           command: openfin-csharp-api-test\bin\Debug\OpenfinDesktopTests.exe
       - save_cache:
           paths:
-            - C:\Users\circleci\AppData\Local\OpenFin
+            - C:\Users\circleci\AppData\Local\OpenFin\runtime
           key: openfin-runtimes
       - run:
           name: "Tests"
