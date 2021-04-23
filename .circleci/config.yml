@@ -29,14 +29,14 @@ jobs:
           command: msbuild /t:Build
       - restore_cache:
           keys:
-            - openfin-runtimes
+            - openfin-runtimes-{{ checksum "../src/app.json" }}
       - run:
           name: "Install OpenFin runtimes"
           command: openfin-csharp-api-test\bin\Debug\OpenfinDesktopTests.exe
       - save_cache:
           paths:
             - C:\Users\circleci\AppData\Local\OpenFin\runtime
-          key: openfin-runtimes
+          key: openfin-runtimes-{{ checksum "../src/app.json" }}
       - run:
           name: "Tests"
           command: C:\Users\circleci\.nuget\packages\NUnit.ConsoleRunner\3.11.1\tools\nunit3-console.exe openfin-csharp-api-test.sln --result="C:\Users\circleci\test-results\nunit\results.xml;transform=openfin-csharp-api-test\nunit3-junit.xslt"
