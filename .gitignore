@@ -2,3 +2,7 @@
 /openfin-appseed.iml
 /node_modules
 # Created by .ignore support plugin (hsz.mobi)
+/openfin-csharp-api-test/openfin-csharp-api-test/bin/
+/openfin-csharp-api-test/openfin-csharp-api-test/obj/
+/openfin-csharp-api-test/.vs/
+/openfin-csharp-api-test/TestResult.xml
