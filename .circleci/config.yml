@@ -40,6 +40,8 @@ jobs:
       - run:
           name: "Tests"
           command: C:\Users\circleci\.nuget\packages\NUnit.ConsoleRunner\3.11.1\tools\nunit3-console.exe openfin-csharp-api-test.sln --result="C:\Users\circleci\test-results\nunit\results.xml;transform=openfin-csharp-api-test\nunit3-junit.xslt"
+      - store_artifacts:
+          path: C:\Users\circleci\AppData\Local\OpenFin\logs
       - store_test_results:
           path: ~/test-results/
 workflows:
